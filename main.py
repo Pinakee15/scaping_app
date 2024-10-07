@@ -5,13 +5,13 @@ from utils.auth import AuthHandler
 from models.product import Product
 from scraper.storage import SQLiteStorage, StorageInterface
 from scraper.cache import RedisCache, CacheInterface
-from scraper.scraper import Scraper  
-from scraper.notifier import NotifierInterface, ConsoleNotifier  
+from scraper.scraper import Scraper
+from scraper.notifier import NotifierInterface, ConsoleNotifier
 
 app = FastAPI()
 
 # Configuration
-AUTH_TOKEN = "sample_token"  # Replace with your actual token
+AUTH_TOKEN = "sample_token" 
 BASE_URL = "https://dentalstall.com/shop/"
 
 # Initialize AuthHandler
@@ -36,8 +36,8 @@ def read_root():
 
 @app.post("/scrape")
 def scrape(request: ScrapeRequest, token: str = Depends(auth_handler.authenticate)):
-    scraper = Scraper(proxy=request.proxy, cache=cache)
-    scraped_products = scraper.scrape(base_url=BASE_URL, limit=request.limit)
+    scraper = Scraper(proxy=request.proxy)
+    scraped_products = scraper.scrape_all_pages(base_url=BASE_URL, limit=request.limit)
 
     scraped_count = 0
     updated_count = 0
