@@ -39,7 +39,6 @@ class Scraper:
         products = []
 
         product_items = soup.find_all('li', class_='product')
-        print('here === product_items', product_items)
 
         for item in product_items:
             product = {}
@@ -59,24 +58,30 @@ class Scraper:
                 product['Image URL'] = None
 
 
-            price_tag = item.find('span', class_='woocommerce-Price-amount')
+            price_ins = item.find('ins')
+            if price_ins:
+                price_tag = price_ins.find('span', class_='woocommerce-Price-amount amount')
+            else:
+                price_tag = item.find('span', class_='woocommerce-Price-amount amount')
+            
             if price_tag:
-                price_str = price_tag.get_text(strip=True).replace('$', '').replace(',', '')
+                price_text = price_tag.get_text(strip=True)
+                price_numeric = ''.join(c for c in price_text if (c.isdigit() or c == '.' or c == ','))
+                price_numeric = price_numeric.replace(',', '')
                 try:
-                    product['Price'] = float(price_str)
+                    product['Price'] = float(price_numeric)
                 except ValueError:
                     product['Price'] = 0.0
             else:
                 product['Price'] = 0.0
-
-
-            if product['Title'] and product['Price'] and product['Image URL']:
+            
+            if product['Title'] and product['Image URL']:                
                 product_model = Product(
                     product_title=product['Title'],
                     product_price=product['Price'],
                     path_to_image=product['Image URL']
                 )
-                products.append(product_model)
+                products.append(product_model)                
 
         return products
 

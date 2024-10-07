@@ -7,11 +7,18 @@ from scraper.storage import SQLiteStorage, StorageInterface
 from scraper.cache import RedisCache, CacheInterface
 from scraper.scraper import Scraper
 from scraper.notifier import NotifierInterface, ConsoleNotifier
+from dotenv import load_dotenv
+import os
+
+# Load environment variables from .env file
+load_dotenv()
 
 app = FastAPI()
 
+# Access the AUTH_TOKEN from environment variables
+AUTH_TOKEN = os.getenv("AUTH_TOKEN")
+
 # Configuration
-AUTH_TOKEN = "sample_token" 
 BASE_URL = "https://dentalstall.com/shop/"
 
 # Initialize AuthHandler

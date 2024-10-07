@@ -1,4 +1,4 @@
-env
+/env
 *.pyc
 *.log
 *.txt
@@ -7,4 +7,4 @@ env
 *.xlsx
 *.xls
 *.db
-env
+.env
