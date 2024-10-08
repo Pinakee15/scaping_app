@@ -1,10 +1,4 @@
 /env
 *.pyc
-*.log
-*.txt
-*.csv
-*.json
-*.xlsx
-*.xls
 *.db
 .env

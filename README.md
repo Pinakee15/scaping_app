@@ -20,8 +20,8 @@ A FastAPI-based tool to scrape product information from [DentalStall](https://de
 1. **Clone the Repository**
 
    ```bash
-   git clone https://github.com/Pinakee15/dentalstall-scraper.git
-   cd dentalstall-scraper
+   git clone git@github.com:Pinakee15/scaping_app.git
+   cd scaping_app
 2. ** Create a virtual env and a .env file
    ```bash
    python3 -m venv {your env name}
